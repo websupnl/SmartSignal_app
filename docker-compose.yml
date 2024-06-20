@@ -13,8 +13,8 @@ services:
     networks:
       - db_network
 
-  appseed-app:
-    container_name: appseed_app
+  smartsignal_app:
+    container_name: smartsignal_app
     restart: always
     build: .
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
@@ -39,7 +39,7 @@ services:
     networks:
       - web_network
     depends_on: 
-      - appseed_app
+      - smartsignal_app
 
 networks:
   db_network:

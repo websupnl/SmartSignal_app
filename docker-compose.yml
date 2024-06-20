@@ -13,15 +13,15 @@ services:
     networks:
       - db_network
 
-  smartsignal_app:
-    container_name: smartsignal_app
+  appseed-app:
+    container_name: appseed_app
     restart: always
     build: .
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/usr/src/app
     ports:
-      - "8001:8000"  # Externe poort 8001, interne poort 8000
+      - "8000:8000"
     networks:
       - db_network
       - web_network
@@ -33,13 +33,13 @@ services:
     restart: always
     image: "nginx:latest"
     ports:
-      - "80:80"
+      - "5085:80"  # Nginx poort configureren om verkeer op poort 80 te proxy'en
     volumes:
-      - ./nginx/appseed-app.conf:  # Verwijs naar het juiste configuratiebestand
+      - ./nginx:/etc/nginx/conf.d
     networks:
       - web_network
     depends_on: 
-      - smartsignal_app
+      - appseed_app
 
 networks:
   db_network:

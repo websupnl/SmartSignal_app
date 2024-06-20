@@ -35,7 +35,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/appseed-app.conf:/etc/nginx/conf.d/default.conf  # Verwijs naar het juiste configuratiebestand
     networks:
       - web_network
     depends_on: 
